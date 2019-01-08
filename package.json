@@ -1,0 +1,22 @@
+{
+  "name": "agdq",
+  "version": "1.0.0",
+  "description": "agdq things",
+  "main": "AdgqAcronymGenerator.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "agdq",
+    "acronym"
+  ],
+  "author": "Michael May",
+  "license": "ISC",
+  "dependencies": {
+    "five": "^0.8.0",
+    "pluralize": "^7.0.0",
+    "tensify": "0.0.4",
+    "wordpos": "^1.2.0",
+    "words-en": "^2.0.0"
+  }
+}
