@@ -2,7 +2,7 @@
   "name": "agdq",
   "version": "1.0.0",
   "description": "agdq things",
-  "main": "AdgqAcronymGenerator.js",
+  "main": "app.js",
   "scripts": {
     "test": "test"
   },
@@ -13,7 +13,7 @@
   "author": "Michael May",
   "license": "ISC",
   "dependencies": {
-    "five": "^0.8.0",
+    "express": "^4.16.4",
     "pluralize": "^7.0.0",
     "tensify": "0.0.4",
     "wordpos": "^1.2.0",

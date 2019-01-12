@@ -1,0 +1,12 @@
+.textbox {
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    line-height: 1.4;
+    box-shadow: 0 2px 3px hsla(0,0%,4%,.1), 0 0 0 1px hsla(0,0%,4%,.1);
+    width: 20%;
+    border-radius: 290486px;
+    text-align: center;
+    background: #eeeeee;
+    margin: 0px 10px 10px 0px;
+    display: inline-block;
+}

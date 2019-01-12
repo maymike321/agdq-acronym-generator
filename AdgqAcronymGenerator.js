@@ -3,8 +3,6 @@ const WordPOS = require('wordpos');
 const wordpos = new WordPOS();
 const tensify = require('tensify');
 const pluralize = require('pluralize');
-const five = require('five');
-
 let words;
 
 const AWordsFilePath = 'AWords.txt';
@@ -12,27 +10,19 @@ const GWordsFilePath = 'GWords.txt';
 const DWordsFilePath = 'DWords.txt';
 const QWordsFilePath = 'QWords.txt';
 
-const acronymsToGenerate = (five() + five()) * five();
-
-getAcronymWords().then(([a, g, d, q]) => {
-  for (let i = 0; i < acronymsToGenerate; i++) {
-    console.log(`${getRandom(a)} ${getRandom(g)} ${getRandom(d)} ${getRandom(q)}`);
-  }
-});
-
-async function getAcronymWords() {
-  const a = await getAcronymWord(AWordsFilePath, 'a', wordpos.getAdjectives.bind(wordpos));
-  const g = await getAcronymWord(GWordsFilePath, 'g', async words => {
+//Generates an acronym for agdq.  Pass in an object containing values for any of a, g, d or q to use those values for that part of the acronym instead of generating a random one.
+module.exports.generateAcronym = async ({ a, g, d, q } = {}) => {
+  a = a || getRandom(await getAcronymWord(AWordsFilePath, 'a', wordpos.getAdjectives.bind(wordpos)));
+  g = g || getRandom(await getAcronymWord(GWordsFilePath, 'g', async words => {
     const nouns = await wordpos.getNouns(words);
     return [...new Set(nouns.map(noun => pluralize(noun)))];
-    return nouns.filter(noun => noun[noun.length - 1] === 's');
-  });
-  const d = await getAcronymWord(DWordsFilePath, 'd', async words => {
+  }));
+  d = d || getRandom(await getAcronymWord(DWordsFilePath, 'd', async words => {
     const adjectives = await wordpos.getAdjectives(words);
     return [...new Set(adjectives.map(word => tensify(word).past))]
-  });
-  const q = await getAcronymWord(QWordsFilePath, 'q', wordpos.getAdverbs.bind(wordpos));
-  return [a, g, d, q];
+  }));
+  q = q || getRandom(await getAcronymWord(QWordsFilePath, 'q', wordpos.getAdverbs.bind(wordpos)));
+  return { a, g, d, q };
 }
 
 async function getAcronymWord(filepath, startingLetter, wordFilter) {
@@ -46,7 +36,7 @@ async function getAcronymWord(filepath, startingLetter, wordFilter) {
   }
 }
 
-function getRandom(arr){
+function getRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 function getWords() {
